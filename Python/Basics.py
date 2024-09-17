@@ -1,3 +1,6 @@
+# print = 20 # do not use keyword names as variable names
+# print(print) # because if used, then its functionality changes and on using that function it gives error
+
 # college = "   manipal  "
 
 # print(college.strip())
@@ -6,7 +9,7 @@
 
 # escape characters
 
-# text = "my name is "akshay"" --> throws errorf
+# text = "my name is "akshay"" --> throws error
 # text = "my name is \"akshay\""
 # print(text)
 
@@ -24,7 +27,11 @@
 # tuple constructor
 
 # tpl = tuple(("q","1","akshay"))
-tpl = ("blue",)
-print(tpl)
-print(type(tpl))
+# tpl = ("blue",)
+# print(tpl)
+# print(type(tpl))
 
+company = "upflairs"
+x = company[-7::-1]
+print(company[4::-1])
+print(type(x))
