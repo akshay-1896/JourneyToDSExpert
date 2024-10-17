@@ -41,3 +41,9 @@ print(st5.rstrip()) # removes white spaces from right
 
 
 
+
+
+
+
+
+
