@@ -29,7 +29,7 @@ while True:  # infinite loop for continuous data receiving
     print(f"IP Address: {ip_address} \n Message: {decoded_message}")
     # print(decoded_message[0])
 
-    if decoded_message[0] == '0':
+    if decoded_message[0] == '1':
         inbox_folder_path = os.path.join(data_folder_path, 'Inbox Files')
         os.makedirs(inbox_folder_path, exist_ok=True)
 
@@ -37,8 +37,10 @@ while True:  # infinite loop for continuous data receiving
         file_path = os.path.join(inbox_folder_path, filename)
         print("Inbox Folder Created!!")
 
+        decoded_msg_ls= decoded_message.split('|')
+        original_msg = decoded_msg_ls[1]
         with open(file_path, 'a') as file:
-            file.write(decoded_message + '\n')
+            file.write(original_msg + '\n')
 
     elif decoded_message[0] == '1':
         text_folder_path = os.path.join(data_folder_path, 'Text Files')
@@ -52,3 +54,5 @@ while True:  # infinite loop for continuous data receiving
 
         with open(file_path, 'a') as file:
             file.write(ls_filename[1])
+            
+    # elif decoded_message[0] == '3'
