@@ -1,4 +1,5 @@
 import socket
+import base64
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 
 # ip_address = "192.168.24.13" # 127.0.0.1 (local host address) --> for self transfer of data
@@ -33,8 +34,12 @@ while not quiet:
         input_path = input("Enter the Path: ")
         with open(input_path,'r') as file:
             file_content = file.read()
+            ls_path = input_path.rsplit('\\', maxsplit=1)
             encrypted_file_content = file_content.encode('ascii')
-            s.sendto(encrypted_file_content,target_address)
+            file_label = '2/' + ls_path[1] + '/'
+            encrypted_file_label = file_label.encode('ascii')
+            file_data = encrypted_file_label + encrypted_file_content
+            s.sendto(file_data,target_address)
             print("Successfully sent message")
             checkmark = input("Do you want to quit? ")
             if checkmark.lower() == "y":
@@ -44,13 +49,13 @@ while not quiet:
             
     elif send_data_code == 3:
         input_path = input("Enter the Path: ")
-        with open(input_path,'rb') as file:
-            pdf_content = file.read()
-            label = '3' + 'PDF' + '|'
-            encrypted_label = label.encode('ascii')
-            pdf_data = encrypted_label + pdf_content
-            encrypted_pdf_data = pdf_data.encode('ascii')
-            s.sendto(encrypted_pdf_data,target_address)
+        with open(input_path,'rb') as pdf:
+            pdf_content = pdf.read()
+            ls_path = input_path.rsplit('\\',maxsplit=1)
+            pdf_label = '3/' + ls_path[1] + '/'
+            encrypted_pdf_label = pdf_label.encode('ascii')
+            pdf_data = encrypted_pdf_label + pdf_content
+            s.sendto(pdf_data,target_address)
             print("Successfully sent pdf")
             checkmark = input("Do you want to quit? ")
             if checkmark.lower() == 'y':

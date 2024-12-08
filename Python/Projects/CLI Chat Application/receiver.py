@@ -1,5 +1,6 @@
 import socket
 import os
+import base64
 # UDP --> User Datagram Protocol
 # DGRAM = DataGram , SOCK_DGRAM -> UDP Protocol
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -20,7 +21,7 @@ data_folder_path = os.path.join(current_working_dir_path, 'media')
 # print(data_folder_path)
 
 while True:  # infinite loop for continuous data receiving
-    data = s.recvfrom(500)
+    data = s.recvfrom(1000000)
     message = data[0]
     decoded_message = message.decode('ascii')
 
@@ -42,17 +43,31 @@ while True:  # infinite loop for continuous data receiving
         with open(file_path, 'a') as file:
             file.write(original_msg + '\n')
 
-    elif decoded_message[0] == '1':
+    elif decoded_message[0] == '2':
         text_folder_path = os.path.join(data_folder_path, 'Text Files')
         os.makedirs(text_folder_path, exist_ok=True)
-        # print("Text Folder created!!")
 
-        ls = decoded_message.split(' ', maxsplit=1)
-        ls_filename = ls[1].split(' | ', maxsplit=1)
-        filename = ls_filename[0]
+        ls = decoded_message.split('/', maxsplit=2)
+        # ls_filename = ls[1].split(' | ', maxsplit=1)
+        filename = ls[1]
         file_path = os.path.join(text_folder_path, filename)
+        print("Text File created!!")
 
         with open(file_path, 'a') as file:
-            file.write(ls_filename[1])
+            file.write(ls[2])
             
-    # elif decoded_message[0] == '3'
+    elif decoded_message[0] == '3':
+        pdf_folder_path = os.path.join(data_folder_path, 'PDF Files')
+        os.makedirs(pdf_folder_path, exist_ok=True)
+        splitted_data = decoded_message.split('/',maxsplit=2)
+        
+        filename = splitted_data[1]
+        pdf_path = os.path.join(pdf_folder_path,filename)
+        print("PDF file created!")
+
+        with open(pdf_path,'ab') as file:
+            file.write(splitted_data[2])
+            
+        remaining = True
+        while remaining:
+            received_data = s.recvfrom(2048)
