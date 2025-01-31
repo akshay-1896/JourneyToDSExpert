@@ -71,3 +71,4 @@ while True:  # infinite loop for continuous data receiving
         remaining = True
         while remaining:
             received_data = s.recvfrom(2048)
+        

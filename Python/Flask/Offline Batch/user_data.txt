@@ -1,1 +1,0 @@
-{'name': 'Radhey', 'email': 'ranjit.upflairs@gmail.com',  'password': "258"}, {'name': 'Anshika', 'email': 'anshika.upflairs@gmail.com', 'password': "786"}, {'name': 'Akshay', 'email': 'akshay.upflairs@gmail.com',  'password': "343"}, {'name': 'Lakshay', 'email': 'lakshay.upflairs@gmail.com',  'password': "927"}
